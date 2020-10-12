@@ -2,11 +2,11 @@ points = [(2, 4), (4, 2)]
 
 
 def F(w):
-    return sum([(w*x - y)**2 for x, y in points])
+    return sum([(w*x - y)**2 for x, y in points])/1
 
 
 def dF(w):
-    return sum(2 * (w*x - y)*x for x, y in points)
+    return sum(2 * (w*x - y)*x for x, y in points)/1
 
 
 # Gradient Descent
