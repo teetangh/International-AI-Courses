@@ -4,12 +4,16 @@
 # main code
 
 def computeEditDistance(s, t):
+    cache = {}  # (m,n) =>result
+
     def recurse(m, n):
         """
         Return the minimum edit distance between:
         - first m letters of s
         - first n letters of t
         """
+        if(m, n) in cache:
+            return cache[(m, n)]
 
         if m == 0:  # Base Case
             result = n
@@ -23,10 +27,12 @@ def computeEditDistance(s, t):
             delCost = 1 + recurse(m-1, n)
             insCost = 1 + recurse(m, n-1)
             result = min(subCost, delCost, insCost)
+
+        cache[(m, n)] = result
         return result
 
     return recurse(len(s), len(t))
 
 
-print(computeEditDistance("a cat!", "the cats!"))
-# 4
+print(computeEditDistance("a cat!" * 10, "the cats!" * 10))
+# 40
