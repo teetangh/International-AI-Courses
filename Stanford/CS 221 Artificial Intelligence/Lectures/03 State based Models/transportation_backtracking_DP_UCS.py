@@ -70,7 +70,7 @@ def backtrackingSearch(problem):
     return (best['cost'], best['history'])
 
 
-def dynamicProgramming(problem):
+def dynamicProgrammingWithoutHistory(problem):
 
     cache = {}  # start -> futureCost(state)
 
@@ -131,7 +131,7 @@ printSolution(backtrackingSearch(problem))
 # printSolution(backtrackingSearch(problem))
 
 print("Dyanmmic Programming")
-printSolution(dynamicProgramming(problem))
+printSolution(dynamicProgrammingWithoutHistory(problem))
 
 print("Uniform Cost Search")
 printSolution(uninformCostSearch(problem))
