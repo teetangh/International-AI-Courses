@@ -116,3 +116,6 @@ printSolution(backtrackingSearch(problem))
 
 print("Dyanmmic Programming")
 printSolution(dynamicProgramming(problem))
+
+print("Uniform Cost Search")
+printSolution(dynamicProgramming(problem))
