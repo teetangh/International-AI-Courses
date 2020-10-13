@@ -1,3 +1,5 @@
+import util
+
 """
 Model (search Problem)
 """
@@ -87,6 +89,20 @@ def dynamicProgramming(problem):
     return (futureCost(problem.startState()), [])
 
 
+def uninformCostSearch(problem):
+    frontier = util.PriorityQueue()
+    frontier.update(problem.startState(), 0)
+    while True:
+        # Move from frontier to explored
+        state, pastCost = frontier.removeMin()
+        if problem.isEnd(state):
+            return (pastCost, [])
+
+        # Push out on the frontier
+        for action, newState, cost in problem.succAndCost(state):
+            frontier.update(newState, pastCost+cost)
+
+
 """
 Main
 """
@@ -118,4 +134,4 @@ print("Dyanmmic Programming")
 printSolution(dynamicProgramming(problem))
 
 print("Uniform Cost Search")
-printSolution(dynamicProgramming(problem))
+printSolution(uninformCostSearch(problem))

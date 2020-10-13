@@ -34,7 +34,7 @@ class PriorityQueue:
         while len(self.heap) > 0:
             priority, state = heapq.heappop(self.heap)
             if self.priorites[state] == self.DONE:
-                continue
+                continue    # Outdated priority can skip
             self.priorites[state] = self.DONE
             return (state, priority)
         return (None, None)
