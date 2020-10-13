@@ -89,9 +89,9 @@ def predict(N, weights):
     return [action for action, newState, cost in history]
 
 
-def generateExamples():
+def generateExamples(numExamples):
     trueWeights = {'walk': 1, 'tram': 4}
-    return [(N, predict(N, trueWeights)) for N in range(1, 10)]
+    return [(N, predict(N, trueWeights)) for N in range(1, numExamples)]
 
 
 def structuredPerceptron(examples):
@@ -116,11 +116,13 @@ def structuredPerceptron(examples):
             break
 
 
-examples = generateExamples()
+examples = generateExamples(10)
 print("Training Dataset")
 for example in examples:
     print(" ", example)
 structuredPerceptron(examples)
+
+
 """OUTPUT
 Training Dataset
   (1, [])
@@ -141,4 +143,46 @@ Iteration 5 , numMistakes = 3 , weights = {'walk': 1, 'tram': 7}
 Iteration 6 , numMistakes = 2 , weights = {'walk': 3, 'tram': 7}
 Iteration 7 , numMistakes = 3 , weights = {'walk': 2, 'tram': 8}
 Iteration 8 , numMistakes = 0 , weights = {'walk': 2, 'tram': 8}
+"""
+
+
+examples = generateExamples(30)
+print("Training Dataset")
+for example in examples:
+    print(" ", example)
+structuredPerceptron(examples)
+"""OUTPUT
+Training Dataset
+  (1, [])
+  (2, ['walk'])
+  (3, ['walk', 'walk'])
+  (4, ['walk', 'walk', 'walk'])
+  (5, ['walk', 'walk', 'walk', 'walk'])
+  (6, ['walk', 'walk', 'walk', 'walk', 'walk'])
+  (7, ['walk', 'walk', 'walk', 'walk', 'walk', 'walk'])
+  (8, ['walk', 'walk', 'walk', 'tram'])
+  (9, ['walk', 'walk', 'walk', 'tram', 'walk'])
+  (10, ['walk', 'walk', 'walk', 'walk', 'tram'])
+  (11, ['walk', 'walk', 'walk', 'walk', 'tram', 'walk'])
+  (12, ['walk', 'walk', 'walk', 'walk', 'walk', 'tram'])
+  (13, ['walk', 'walk', 'walk', 'walk', 'walk', 'tram', 'walk'])
+  (14, ['walk', 'walk', 'walk', 'walk', 'walk', 'walk', 'tram'])
+  (15, ['walk', 'walk', 'walk', 'walk', 'walk', 'walk', 'tram', 'walk'])
+  (16, ['walk', 'walk', 'walk', 'tram', 'tram'])
+  (17, ['walk', 'walk', 'walk', 'tram', 'tram', 'walk'])
+  (18, ['walk', 'walk', 'walk', 'tram', 'walk', 'tram'])
+  (19, ['walk', 'walk', 'walk', 'tram', 'walk', 'tram', 'walk'])
+  (20, ['walk', 'walk', 'walk', 'walk', 'tram', 'tram'])
+  (21, ['walk', 'walk', 'walk', 'walk', 'tram', 'tram', 'walk'])
+  (22, ['walk', 'walk', 'walk', 'walk', 'tram', 'walk', 'tram'])
+  (23, ['walk', 'walk', 'walk', 'walk', 'tram', 'walk', 'tram', 'walk'])
+  (24, ['walk', 'walk', 'walk', 'walk', 'walk', 'tram', 'tram'])
+  (25, ['walk', 'walk', 'walk', 'walk', 'walk', 'tram', 'tram', 'walk'])
+  (26, ['walk', 'walk', 'walk', 'walk', 'walk', 'tram', 'walk', 'tram'])
+  (27, ['walk', 'walk', 'walk', 'walk', 'walk', 'tram', 'walk', 'tram', 'walk'])
+  (28, ['walk', 'walk', 'walk', 'walk', 'walk', 'walk', 'tram', 'tram'])
+  (29, ['walk', 'walk', 'walk', 'walk', 'walk', 'walk', 'tram', 'tram', 'walk'])
+Iteration 0 , numMistakes = 16 , weights = {'walk': 2, 'tram': 12}
+Iteration 1 , numMistakes = 5 , weights = {'walk': 4, 'tram': 13}
+Iteration 2 , numMistakes = 0 , weights = {'walk': 4, 'tram': 13}
 """
