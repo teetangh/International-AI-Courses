@@ -47,13 +47,13 @@ def printSolution(solution):
 
 def dynamicProgramming(problem):
 
-    cache = {}  # start -> futureCost(state)
+    cache = {}  # start -> futureCost(state),action,newState, cost
 
     def futureCost(state):
         if problem.isEnd(state):
             return 0
-
         if state in cache:
+
             return cache[state][0]
 
         result = min((cost + futureCost(newState), action, newState, cost)
@@ -76,4 +76,69 @@ def dynamicProgramming(problem):
 
 """
 Main
+"""
+
+
+def predict(N, weights):
+    '''
+    Input(x) : N ( number of blocks)
+    Output(x) : path(sequence of actions)
+    '''
+    problem = TransportationProblem(N, weights)
+    totalCost, history = dynamicProgramming(problem)
+    return [action for action, newState, cost in history]
+
+
+def generateExamples():
+    trueWeights = {'walk': 1, 'tram': 4}
+    return [(N, predict(N, trueWeights)) for N in range(1, 10)]
+
+
+def structuredPerceptron(examples):
+    weights = {'walk': 0, 'tram': 0}
+    for t in range(100):
+        numMistakes = 0
+        for N, trueActions in examples:
+            # Make a prediction
+            predActions = predict(N, weights)
+            if predActions != trueActions:
+                numMistakes += 1
+            # Update weights
+            for action in trueActions:
+                weights[action] -= 1
+            for action in predActions:
+                weights[action] += 1
+
+        print("Iteration {} , numMistakes = {} , weights = {}".format(
+            t, numMistakes, weights))
+
+        if numMistakes == 0:
+            break
+
+
+examples = generateExamples()
+print("Training Dataset")
+for example in examples:
+    print(" ", example)
+structuredPerceptron(examples)
+"""OUTPUT
+Training Dataset
+  (1, [])
+  (2, ['walk'])
+  (3, ['walk', 'walk'])
+  (4, ['walk', 'walk', 'walk'])
+  (5, ['walk', 'walk', 'walk', 'walk'])
+  (6, ['walk', 'walk', 'walk', 'walk', 'walk'])
+  (7, ['walk', 'walk', 'walk', 'walk', 'walk', 'walk'])
+  (8, ['walk', 'walk', 'walk', 'tram'])
+  (9, ['walk', 'walk', 'walk', 'tram', 'walk'])
+Iteration 0 , numMistakes = 3 , weights = {'walk': 0, 'tram': 2}
+Iteration 1 , numMistakes = 2 , weights = {'walk': 1, 'tram': 3}
+Iteration 2 , numMistakes = 3 , weights = {'walk': 0, 'tram': 4}
+Iteration 3 , numMistakes = 2 , weights = {'walk': 1, 'tram': 5}
+Iteration 4 , numMistakes = 2 , weights = {'walk': 2, 'tram': 6}
+Iteration 5 , numMistakes = 3 , weights = {'walk': 1, 'tram': 7}
+Iteration 6 , numMistakes = 2 , weights = {'walk': 3, 'tram': 7}
+Iteration 7 , numMistakes = 3 , weights = {'walk': 2, 'tram': 8}
+Iteration 8 , numMistakes = 0 , weights = {'walk': 2, 'tram': 8}
 """
