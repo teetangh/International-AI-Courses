@@ -110,3 +110,19 @@ mdp = TransportationMDP(N=10)
 # print(mdp.succAndCost(3, 'walk'))
 # print(mdp.succAndCost(3, 'tram'))
 valueIteration(mdp)
+
+'''OUTPUT
+s               V(s)            pi(s)          
+              1            -1.0 walk           
+              2            -1.0 walk           
+              3            -1.0 walk           
+              4            -1.0 walk           
+              5            -1.0 walk           
+              6            -1.0 walk           
+              7            -1.0 walk           
+              8            -1.0 walk           
+              9            -1.0 walk           
+             10               0 none           
+
+
+'''
