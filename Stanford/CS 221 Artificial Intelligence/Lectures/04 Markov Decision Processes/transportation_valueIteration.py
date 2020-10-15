@@ -99,9 +99,9 @@ def valueIteration(mdp):
 
         # Print the stuff out
         os.system('clear')
-        print('{:15} {:15} {:15}'.format('s', 'V(s)', 'pi(s)'))
+        print('{:20} {:20} {:20}'.format('s', 'V(s)', 'pi(s)'))
         for state in mdp.states():
-            print('{:15} {:15} {:15}'.format(state, V[state], pi[state]))
+            print('{:20} {:20} {:20}'.format(state, V[state], pi[state]))
         input()
 
 
@@ -111,18 +111,32 @@ mdp = TransportationMDP(N=10)
 # print(mdp.succAndCost(3, 'tram'))
 valueIteration(mdp)
 
-'''OUTPUT
-s               V(s)            pi(s)          
-              1            -1.0 walk           
-              2            -1.0 walk           
-              3            -1.0 walk           
-              4            -1.0 walk           
-              5            -1.0 walk           
-              6            -1.0 walk           
-              7            -1.0 walk           
-              8            -1.0 walk           
-              9            -1.0 walk           
-             10               0 none           
+'''INITIAL OUTPUT
+s                    V(s)                 pi(s)
+                   1                 -1.0 walk
+                   2                 -1.0 walk
+                   3                 -1.0 walk
+                   4                 -1.0 walk
+                   5                 -1.0 walk
+                   6                 -1.0 walk
+                   7                 -1.0 walk
+                   8                 -1.0 walk
+                   9                 -1.0 walk
+                  10                    0 none
 
 
+'''
+
+'''FINAL OUTPUT
+s                    V(s)                 pi(s)               
+                   1   -7.999999999883585 walk                
+                   2   -6.999999999941792 walk                
+                   3   -5.999999999970896 walk                
+                   4   -4.999999999985448 walk                
+                   5   -3.999999999992724 tram                
+                   6                 -4.0 walk                
+                   7                 -3.0 walk                
+                   8                 -2.0 walk                
+                   9                 -1.0 walk                
+                  10                    0 none  
 '''
