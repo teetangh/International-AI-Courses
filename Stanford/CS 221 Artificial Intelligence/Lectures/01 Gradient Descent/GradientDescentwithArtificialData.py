@@ -19,6 +19,7 @@ for t in range(10000):
     print(x, y)
     points.append((x, y))
 
+
 def F(w):
     return sum([(w.dot(x) - y)**2 for x, y in points])/len(points)
 
